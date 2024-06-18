@@ -1,0 +1,49 @@
+heri_yanolja+EEVE-Korean-Instruct-10.8B-v1.0:
+  openai:
+    api_key: ________my_api_key________
+  wandb:
+    api_key: ________my_api_key________
+    project_name: ________my_project_name________
+    group_name: ________my_group_name________
+    session_name: heri_yanolja+EEVE-Korean-Instruct-10.8B-v1.0
+  path:
+    dataset: /heri/data/
+    checkpoint: /heri/checkpoint/
+    template: /heri/template/
+    result: /heri/result/
+  dataprep:
+    raw_dataset: ________my_dataset_name________
+    finetuning_dataset: ________my_dataset_name________
+    instruction_method: ft
+    subsample: 1.0
+  finetune:
+    device: cuda
+    report_to: wandb
+    llm_backbone: yanolja/EEVE-Korean-Instruct-10.8B-v1.0
+    lora:
+      enabled: true
+      qlora: true
+      r: 8
+      alpha: 32
+      dropout: 0.05
+      bias: none
+      task_type: CAUSAL_LM
+    per_device_train_batch_size: 4
+    gradient_accumulation_steps: 1
+    num_train_epochs: 5
+    learning_rate: 0.0001
+    fp16: true
+    logging_steps: 1000
+    output_dir: null
+    optim: paged_adamw_8bit
+  inference:
+    checkpoint_name: null
+    template_method: ________my_template_name________
+    retrieval:
+      embedding_library: openai
+      embedding_model: text-embedding-ada-002
+      vector_library: faiss
+      vector_store: ________my_vectorstore_name________
+    generation:
+      max_new_tokens: 8
+    start_batch: 0
